@@ -1,0 +1,37 @@
+#include <bits/stdc++.h> 
+vector<vector<int>> findTriplets(vector<int>arr, int n, int K) {
+	// Write your code here.
+    vector<vector<int>> ans;
+    sort(arr.begin(),arr.end());
+    unordered_map<int,int> mp;
+    for(int ele : arr)
+    {
+        mp[ele]++;
+    }
+    for(int i=0;i<n-1;i++)
+    {
+        mp[arr[i]]--;
+      for(int j=0;j<n;j++)
+      {
+          if(arr[j]==arr[j+1] && j>i+1)
+              continue;
+          mp[arr[j]]--;
+         int cursum=arr[i]+arr[j];
+          if(cursum<K)
+          {
+              int req=K-cursum;
+              if(mp[req]!=0)
+              {
+                  vector<int> trip(3);
+                  trip[0]=arr[i];
+                   trip[1]=arr[j];
+                  trip[2]=req;
+                  ans.push_back(trip);
+              }
+          }
+          mp[arr[j]]++; 
+      }
+        mp[arr[i]]++;
+    }
+    return ans;
+}
