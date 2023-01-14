@@ -1,9 +1,10 @@
 #include <bits/stdc++.h> 
 vector<vector<int>> findTriplets(vector<int>arr, int n, int K) {
-	// Write your code here.
+    // Write your code here.
     vector<vector<int>> ans;
     sort(arr.begin(),arr.end());
     unordered_map<int,int> mp;
+    set<vector<int>> s;
     for(int ele : arr)
     {
         mp[ele]++;
@@ -13,11 +14,10 @@ vector<vector<int>> findTriplets(vector<int>arr, int n, int K) {
         mp[arr[i]]--;
       for(int j=0;j<n;j++)
       {
-          if(arr[j]==arr[j+1] && j>i+1)
-              continue;
+        
           mp[arr[j]]--;
          int cursum=arr[i]+arr[j];
-          if(cursum<K)
+          if(cursum<=K)
           {
               int req=K-cursum;
               if(mp[req]!=0)
@@ -26,12 +26,16 @@ vector<vector<int>> findTriplets(vector<int>arr, int n, int K) {
                   trip[0]=arr[i];
                    trip[1]=arr[j];
                   trip[2]=req;
-                  ans.push_back(trip);
+                s.insert(trip);
               }
           }
           mp[arr[j]]++; 
       }
         mp[arr[i]]++;
+    }
+    for(auto key: s)
+    {
+        ans.push_back(key);
     }
     return ans;
 }
