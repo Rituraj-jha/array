@@ -1,0 +1,22 @@
+#include <bits/stdc++.h> 
+void sort012(int *arr, int n)
+{
+   //   Write your code here
+   unordered_map <int,int> mp;
+   for(int k=0;k<n;k++)
+   {
+      mp[arr[k]]++;
+   }
+   int i=0;
+   
+      for(int j=0;j<=2;j++)
+      {
+         while(mp[j]!=0)
+         {
+            mp[j]--;
+            arr[i]=j;
+            i++;
+         }
+      }
+   
+}
